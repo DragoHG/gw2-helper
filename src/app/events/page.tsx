@@ -36,9 +36,14 @@ export default function EventsPage() {
             <h3 className="text-lg text-violet-100">
               Sessões: vários objetivos no mesmo mapa
             </h3>
-            <Link href="/masteries" className="text-sm text-amber-400 hover:underline">
-              Masteries →
-            </Link>
+            <div className="flex flex-wrap gap-3 text-sm">
+              <Link href="/story" className="neon-link hover:underline">
+                História
+              </Link>
+              <Link href="/masteries" className="neon-link hover:underline">
+                Masteries
+              </Link>
+            </div>
           </div>
           {sessions.map((s) => (
             <article

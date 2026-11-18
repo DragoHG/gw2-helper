@@ -924,6 +924,14 @@ export function buildPveRecommendations(
     try {
       const story = storyRoadmapSteps(snapshot)[0];
       if (story) {
+        const storyImpact =
+          stage.stage === "f2p" || stage.stage === "leveling"
+            ? 9
+            : story.id === "story-pof" ||
+                story.id === "story-lws4" ||
+                story.id === "story-soto"
+              ? 8
+              : 7;
         recs.push(
           withTeleport(
             withPriority({
@@ -932,15 +940,12 @@ export function buildPveRecommendations(
               category: "progression",
               title: story.title,
               why: story.why,
-              how: `${story.how} Detalhes na Linha do tempo e Achievements.`,
-              impact: stage.stage === "f2p" || stage.stage === "leveling" ? 9 : 6,
+              how: `${story.how} Abra História no helper e o Story Journal (J) no jogo.`,
+              impact: storyImpact,
               effort: 3,
-              score: scoreRecommendation(
-                stage.stage === "f2p" || stage.stage === "leveling" ? 9 : 6,
-                3,
-                1.1,
-              ),
+              score: scoreRecommendation(storyImpact, 3, 1.25),
               links: [
+                { label: "História", href: "/story" },
                 { label: "Linha do tempo", href: "/roadmap" },
                 { label: "Achievements", href: "/achievements" },
                 { label: "Eventos", href: "/events" },

@@ -18,5 +18,4 @@ alwaysApply: false
 - Eventos: timeline flexível (primary / bridges / upcoming) com **Copiar waypoint**, countdown ao vivo e refetch quando a janela acaba; disclaimer de horário agendado.
 - Guias iniciantes alinhados ao que a conta realmente tem (expansões/mounts/laurels).
 - Botões de copy com feedback visual curto.
-- Não depender de LLM para preencher campos.
 - Páginas dinâmicas (`force-dynamic`) que leem SQLite/snapshot.

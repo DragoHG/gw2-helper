@@ -2,7 +2,7 @@
 
 ## Princípios
 
-1. **API-first:** fatos da conta vêm só de `api.guildwars2.com` + `GW2_API_KEY` do usuário final.
+1. **API-first:** fatos da conta vêm só de `api.guildwars2.com` + `GW2_API_KEY` da sua key.
 2. **Catálogo versionado do jogo:** dados estáticos (waypoints, setores, mapas, moedas, masteries, índice objetivo→WP) cacheados por `/v2/build`, atualizáveis sem mudar código.
 3. **Helper acionável:** o quê / por quê / como / wiki / teleport (`chat_link`) quando existir.
 4. **PvE ≠ PvP.**
@@ -24,6 +24,8 @@ Atualizar minha conta (API key)
 UI
   → /roadmap (orquestra tudo: sessão + eventos + vault + recs + ascended +
      masteries + achievements + story/map guides + craft + lendários + PvP)
+  → /story (linha completa core → LW4 → expansões; bloqueados visíveis)
+  → / (Fazer agora: card História em foco do mesmo motor)
   → /events timeline + sessões por mapId
   → /masteries (próximo nível + guia XP região)
   → /craft (estoque × receita × TP buy + farm do faltante)
@@ -40,10 +42,14 @@ UI
 | `...\catalog\objective-waypoints.json` | texto de objetivo → WP mais próximo |
 | `...\catalog\events-schedule.json` | world bosses/metas + pattern UTC (wiki) |
 | `...\catalog\maps.json` / `currencies.json` / `masteries.json` / `meta.json` | resto do catálogo |
+| `...\catalog\story-beats.json` | beats públicos (seed em `story-beats.ts`; merge por id com seed) |
 
 Roadmap da conta: `src/lib/roadmap/build.ts` (`buildAccountRoadmap`) + `story-guide` / `map-guide`.
+História: `src/lib/roadmap/story-guide.ts` - `analyzeStoryProgress` (UI completa) e `storyRoadmapSteps` (só liberados, sem capítulos `likelyComplete`).
+- PoF "feita" = heurística Jackal/montarias + achievements do tema (API sem flag de story done).
+- LW4 = beat com `requiresExpansion: PathOfFire` (não exige flag LW na API).
 Engine de eventos: `src/lib/events/` - `extractProgressGoals` → `scoreOccurrence` → `buildEventTimeline`.
-Sessões multiobjetivo: `src/lib/sessions/map-session.ts` (cluster por `mapId`).
+Sessões multiobjetivo: `src/lib/sessions/map-session.ts` (cluster por `mapId`; story só `owned`).
 Masteries: `src/lib/masteries/` (rank + xp-guide; API sem barra de XP).
 Crafting: `src/lib/craft/analyze.ts` + `recipesIndex` no sync; farm via `materials/guide.ts`.
 Competitivo: `src/lib/recommend/pvp.ts` (sPvP + WvW) + `src/lib/wvw/` (rank titles no catálogo, match público por world).
@@ -52,14 +58,10 @@ Aliases WB/meta → setor/WP: `src/lib/catalog/event-aliases.ts`.
 
 Wizard's Vault: `src/lib/vault/parse.ts` + `vault/guide.ts`.
 
-Achievements: `rankAchievements` filtra expansão + Living World tocado.
+Achievements: `rankAchievements` filtra expansão + Living World tocado; bits na UI usam key estável (`id-bit-index`).
 
-v2: elites VoE, AR, festivais, lendários, prefs backup, LW por progresso, sync optional + `missingScopes`.
+v2: elites VoE, AR, festivais, lendários, prefs backup, LW por progresso + beat LW4 pós-PoF, sync optional + `missingScopes`.
 
 ## Escala (expansões)
 
 Novos mapas/itens/achievements entram via API no próximo sync/catalog refresh. Labels de expansão em `src/lib/gw2/access.ts` (PoF⇒HoT).
-
-## LLM
-
-Fora do escopo. Textos são templates + regras, preenchidos com dados da API.

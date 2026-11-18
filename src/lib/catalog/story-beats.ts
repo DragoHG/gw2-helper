@@ -9,7 +9,15 @@ export interface StoryBeatCatalog {
   where: string;
   wpHints: string[];
   wiki: string;
+  /** Expansão "dona" do capítulo (bloqueia se a conta não tem). */
   expansion?: ExpansionId;
+  /**
+   * Para Living World / episódios: conta precisa desta expansão base
+   * (ex.: LW4 precisa Path of Fire) mesmo sem flag própria na API.
+   */
+  requiresExpansion?: ExpansionId;
+  /** Season LW (2-5) - usado no ranking pós-expansão. */
+  livingWorldSeason?: 2 | 3 | 4 | 5;
   forLeveling?: boolean;
   forCore80?: boolean;
   /** O que a história desbloqueia (montaria, mastery, mapa…). */
@@ -42,7 +50,7 @@ export const STORY_BEATS_SEED: StoryBeatCatalog[] = [
     id: "story-hot",
     title: "História Heart of Thorns",
     why: "Abre Maguuma, gliding e masteries HoT.",
-    how: "Story Journal → Heart of Thorns. Verdant Brink → Auric Basin → Tangled Depths → Dragon's Stand.",
+    how: "Story Journal - Heart of Thorns. Verdant Brink - Auric Basin - Tangled Depths - Dragon's Stand.",
     where: "Verdant Brink.",
     wpHints: ["Verdant Brink", "Pact Encampment"],
     wiki: "Heart of Thorns story",
@@ -62,7 +70,7 @@ export const STORY_BEATS_SEED: StoryBeatCatalog[] = [
     id: "story-pof",
     title: "História Path of Fire",
     why: "Libera mounts (Raptor/Springer/Skimmer/Jackal) e o deserto.",
-    how: "Story Journal → Path of Fire. Crystal Oasis é o hub - avance até liberar o Jackal.",
+    how: "Story Journal - Path of Fire. Crystal Oasis é o hub - avance até liberar o Jackal.",
     where: "Crystal Oasis.",
     wpHints: ["Crystal Oasis", "Temple of Kormir"],
     wiki: "Path of Fire story",
@@ -73,10 +81,46 @@ export const STORY_BEATS_SEED: StoryBeatCatalog[] = [
     bundleMaps: ["Crystal Oasis", "Desert Highlands", "Elon Riverlands"],
   },
   {
+    id: "story-lws4",
+    title: "Living World Season 4",
+    why: "Continuidade natural depois da história Path of Fire - mapas Istan até Dragonfall e masteries do deserto.",
+    how: "Story Journal / episódios Living World Season 4 (Daybreak → All or Nothing). Se o episódio não estiver na conta, compre na loja Gem ou no Black Lion. Comece em Domain of Istan.",
+    where: "Domain of Istan.",
+    wpHints: ["Domain of Istan", "Free City of Amnoon"],
+    wiki: "Living World Season 4",
+    requiresExpansion: "PathOfFire",
+    livingWorldSeason: 4,
+    unlocks: [
+      "Mapas LW4 (Istan, Sandswept, Jahai, Thunderhead, Dragonfall)",
+      "Masteries Desert avançadas",
+      "Roller Beetle (coleções/episódios)",
+    ],
+    relatedAchievementHints: [
+      "season 4",
+      "lws4",
+      "domain of istan",
+      "sandswept",
+      "jahai",
+      "thunderhead",
+      "dragonfall",
+      "daybreak",
+      "a bug in the system",
+      "all or nothing",
+    ],
+    bundleMaps: [
+      "Domain of Istan",
+      "Sandswept Isles",
+      "Domain of Kourna",
+      "Jahai Bluffs",
+      "Thunderhead Peaks",
+      "Dragonfall",
+    ],
+  },
+  {
     id: "story-eod",
     title: "História End of Dragons",
     why: "Abre Cantha, skiff e Jade Bot.",
-    how: "Story Journal → End of Dragons. Seitung → New Kaineng / Dragon's End.",
+    how: "Story Journal - End of Dragons. Seitung - New Kaineng / Dragon's End.",
     where: "Seitung Province / Arborstone.",
     wpHints: ["Seitung Province", "Arborstone"],
     wiki: "End of Dragons story",
@@ -89,7 +133,7 @@ export const STORY_BEATS_SEED: StoryBeatCatalog[] = [
     id: "story-soto",
     title: "História Secrets of the Obscure",
     why: "Abre Skywatch/Amnytas e o caminho do Skyscale.",
-    how: "Story Journal → SotO. Siga até as collections do Skyscale.",
+    how: "Story Journal - SotO. Siga até as collections do Skyscale.",
     where: "Skywatch Archipelago.",
     wpHints: ["Skywatch Archipelago"],
     wiki: "Secrets of the Obscure story",
@@ -102,7 +146,7 @@ export const STORY_BEATS_SEED: StoryBeatCatalog[] = [
     id: "story-jw",
     title: "História Janthir Wilds",
     why: "Abre mapas e masteries de Janthir.",
-    how: "Story Journal → Janthir Wilds. Lowland Shore e capítulos seguintes.",
+    how: "Story Journal - Janthir Wilds. Lowland Shore e capítulos seguintes.",
     where: "Lowland Shore.",
     wpHints: ["Lowland Shore"],
     wiki: "Janthir Wilds story",
@@ -115,7 +159,7 @@ export const STORY_BEATS_SEED: StoryBeatCatalog[] = [
     id: "story-voe",
     title: "História Visions of Eternity",
     why: "Conteúdo mais novo - Castora, masteries e elites VoE.",
-    how: "Story Journal → Visions of Eternity. Shipwreck Strand / Starlit Weald.",
+    how: "Story Journal - Visions of Eternity. Shipwreck Strand / Starlit Weald.",
     where: "Shipwreck Strand / Starlit Weald.",
     wpHints: ["Shipwreck Strand", "Starlit Weald"],
     wiki: "Visions of Eternity",

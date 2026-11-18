@@ -1,4 +1,4 @@
-# Guia do usuário final - GW2 Helper
+# Guia - GW2 Helper
 
 Helper **local** no browser para Guild Wars 2 (**v2**). Você coloca **sua** API key, sincroniza a conta e vê o que fazer agora para ficar mais forte em PvE - adapta ao estágio (F2P → endgame/VoE), festivais ativos, Vault e Ascended. PvP fica separado.
 
@@ -41,7 +41,8 @@ Topo fixo ao rolar. Links em três grupos que quebram em linhas: **Plano**, **Pr
 |------|----------|
 | **Sobre** | O que o helper faz, API key oficial, páginas, autor |
 | **Linha do tempo** | Plano único da conta: agora, sessão, Vault, poder, mastery, achievements, história, mapas, craft, lendários, PvP |
-| Fazer agora | Próximos passos ranqueados + top 5 achievements |
+| **História** | Linha completa: core, Living World (ex. LW4 após PoF) e expansões até VoE - liberados vs bloqueados, wiki e teleport |
+| Fazer agora | Próximos passos + card **História em foco** (inclui LW quando for o próximo) + top achievements |
 | Conta | Expansões reais (PoF inclui HoT), carteira, resumo |
 | Personagens / Gear | Foco no personagem escolhido |
 | Ascended | Rotas fáceis por slot (Laurel / craft / TP / Fractals) |
@@ -63,9 +64,19 @@ Uma página só com o plano completo, adaptado ao estágio (F2P → VoE):
 - **Ordem sugerida** - prioridade do que falta agora (evento ao vivo, Vault, Ascended, mastery fácil…)
 - **Por faixa** - mesmas ações agrupadas (história, mapas, craft, PvP separado)
 - Cada passo tenta trazer: **o quê / por quê / como / wiki / teleport**
-- Living World só aparece se a conta **já tocou** o episódio
+- **Living World Season 4** entra no plano de história quando a conta tem Path of Fire (próximo natural depois da PoF)
+- Episódios LW **já tocados** (progresso real na API) também aparecem como "continuar"
+- Achievements de LW genéricos sem progresso **não** são inventados
 
-Use **Fazer agora** para o recorte curto do dia; use **Linha do tempo** quando quiser ver o caminho inteiro.
+### História (`/story`) e PoF → LW4
+
+A API **não** diz "story concluída". O helper usa sinais honestos:
+
+- **Jackal + montarias do deserto** → Path of Fire principal tratada como feita; foco sobe para **Living World Season 4**
+- Capítulos de expansão que você **não** tem ficam **bloqueados** (visíveis, sem fingir progresso)
+- **Fazer agora** e **Linha do tempo** puxam o mesmo motor (`story-guide`)
+
+Use **Fazer agora** para o recorte curto do dia; use **Linha do tempo** / **História** para o caminho inteiro.
 
 ## Eventos (timeline)
 
@@ -113,7 +124,7 @@ Ver [PRIVACY.md](PRIVACY.md).
 | `npm run catalog -- --force` | Reindexa DB do jogo (WP/setores/objetivos) |
 | `npm run recs` | Recalcula recomendações do último snapshot |
 | `node scripts/health-check.mjs` | Rotas HTTP ok |
-| `node scripts/smoke-test.mjs` | Testes funcionais (sem vazar dados de conta) |
+| `node scripts/smoke-test.mjs` | Smoke das rotas e fluxos |
 | `npm run test:events` | Engine de timeline (schedule + score) |
 | `npm run build` | Build de produção |
 
@@ -122,9 +133,7 @@ Ver [PRIVACY.md](PRIVACY.md).
 Em **Conta** você pode baixar/importar um JSON com personagem focado e achievements fixados.  
 O arquivo **não** contém API key nem snapshot da conta.
 
-## Limites honestos
+## Limites
 
 - Contadores sem local no mapa (ex.: “mate N inimigos”) podem não ter teleport.
-- Story/map completion da API é incompleto.
-- Não há API pública do gw2efficiency - só `api.guildwars2.com`.
-- LLM **não** é source of truth neste helper.
+- A API não expõe o capítulo exato do Story Journal - a página História cruza expansões e progresso relacionado.

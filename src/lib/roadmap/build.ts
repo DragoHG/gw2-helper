@@ -255,40 +255,49 @@ export function buildAccountRoadmap(snapshot: AccountSnapshot): AccountRoadmap {
   for (const s of safe(() => storyRoadmapSteps(snapshot), [])) push(s);
   for (const m of safe(() => mapRoadmapSteps(snapshot), [])) push(m);
 
-  // --- LW tocada (só se já houver progresso real) ---
+  // --- LW tocada (episódios com progresso real) - complemento ao beat LW4 do story-guide ---
   const questIds = snapshot.characters.flatMap((c) => c.quests ?? []);
-  const touchedLw = (snapshot.achievements ?? []).some((a) => {
-    if (!(a.current && a.current > 0) && !(a.bits && a.bits.length)) return false;
+  const touchedEpisodes = new Set<string>();
+  for (const a of snapshot.achievements ?? []) {
+    if (!(a.current && a.current > 0) && !(a.bits && a.bits.length)) continue;
     const def = snapshot.achievementIndex?.[a.id];
     const inferred = inferAchievementExpansion({
       name: def?.name,
       requirement: def?.requirement,
     });
-    if (inferred !== "living_world") return false;
-    const episode = matchLivingWorldEpisode(def?.name ?? "");
-    return accountTouchedLivingWorld({
-      hasProgress: true,
-      questIds,
-      episode,
-    });
-  });
-  if (touchedLw) {
+    if (inferred !== "living_world") continue;
+    const episode = matchLivingWorldEpisode(
+      `${def?.name ?? ""} ${def?.requirement ?? ""}`,
+    );
+    if (
+      !accountTouchedLivingWorld({
+        hasProgress: true,
+        questIds,
+        episode,
+      })
+    ) {
+      continue;
+    }
+    if (episode) touchedEpisodes.add(episode.name);
+  }
+  if (touchedEpisodes.size) {
     const la = findNearestWaypoint(["Lion's Arch"]);
+    const names = [...touchedEpisodes].slice(0, 3).join(", ");
     push({
       id: "lw-continue",
       lane: "story",
       priority: 58,
       title: "Continuar Living World já iniciada",
-      why: "Sua conta já tocou episódios de Living World - vale retomar em vez de começar do zero.",
-      how: "Abra Achievements / Story do episódio que você já progrediu e feche bits fáceis.",
-      where: "Depende do episódio - use Achievements e a wiki do capítulo.",
+      why: `Sua conta já tem progresso em: ${names}. Retome esses episódios em vez de começar outro do zero.`,
+      how: "Abra Story Journal / Achievements do episódio listado e feche bits fáceis. Wiki do capítulo se travar.",
+      where: "Depende do episódio - use Achievements e a página História.",
       chatLink: la?.waypoint.chatLink,
       teleportLabel: la
         ? `${la.waypoint.name} - ${la.waypoint.mapName}`
         : undefined,
-      wikiUrl: wikiSearch("Living World"),
-      href: "/achievements",
-      hrefLabel: "Achievements",
+      wikiUrl: wikiSearch(names.split(",")[0]?.trim() || "Living World"),
+      href: "/story",
+      hrefLabel: "História",
     });
   }
 

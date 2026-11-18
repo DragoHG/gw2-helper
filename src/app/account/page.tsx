@@ -116,14 +116,20 @@ export default function AccountPage() {
             mês: {snapshot.account.monthly_ap ?? "-"}
           </p>
           <p className="mt-3 flex flex-wrap gap-3 text-sm">
-            <Link href="/events" className="text-amber-400 hover:underline">
-              Eventos →
+            <Link href="/story" className="neon-link hover:underline">
+              História
             </Link>
-            <Link href="/ascended" className="text-amber-400 hover:underline">
-              Ascended →
+            <Link href="/events" className="neon-link hover:underline">
+              Eventos
             </Link>
-            <Link href="/vault" className="text-amber-400 hover:underline">
-              Vault →
+            <Link href="/ascended" className="neon-link hover:underline">
+              Ascended
+            </Link>
+            <Link href="/vault" className="neon-link hover:underline">
+              Vault
+            </Link>
+            <Link href="/roadmap" className="neon-link hover:underline">
+              Linha do tempo
             </Link>
           </p>
         </div>

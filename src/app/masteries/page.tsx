@@ -55,11 +55,14 @@ export default function MasteriesPage() {
       />
 
       <p className="flex flex-wrap gap-3 text-sm">
-        <Link href="/events" className="text-amber-400 hover:underline">
-          Eventos (XP em meta) →
+        <Link href="/story" className="neon-link hover:underline">
+          História
         </Link>
-        <Link href="/achievements" className="text-amber-400 hover:underline">
-          Achievements →
+        <Link href="/events" className="neon-link hover:underline">
+          Eventos (XP em meta)
+        </Link>
+        <Link href="/achievements" className="neon-link hover:underline">
+          Achievements
         </Link>
       </p>
 

@@ -4,7 +4,7 @@
 
 Nunca documentar, commitar ou versionar dados de conta real (nome da conta, personagens, gold, API key, snapshots, progresso).
 
-Docs, rules e skills descrevem só o **produto** e o fluxo para o **usuário final**.
+Docs do app descrevem o **produto** e como usar. Rules/skills de agente falam do fluxo genérico, sem dados reais de conta.
 
 ## O que fica local (não vai para o git)
 
@@ -13,11 +13,11 @@ Docs, rules e skills descrevem só o **produto** e o fluxo para o **usuário fin
 - Catálogo do jogo (waypoints/setores/índice) - público da API, mas cache local
 - Preferências (personagem selecionado, achievements fixados)
 
-## O que o usuário final faz
+## Como você usa
 
 1. Cria a própria API key na ArenaNet  
 2. Coloca no `.env.local`  
-3. Sincroniza no app - o helper mostra **a conta dele**  
+3. Sincroniza no app - o helper mostra **a sua conta**  
 4. Opcionalmente atualiza o DB do jogo (dados públicos, sem a key de conta)
 
 ## O que agentes/docs podem dizer

@@ -61,16 +61,19 @@ export default function RoadmapPage() {
 
       <div className="flex flex-wrap gap-3 text-sm">
         <Link href="/" className="neon-link hover:underline">
-          Fazer agora →
+          Fazer agora
+        </Link>
+        <Link href="/story" className="neon-link hover:underline">
+          História
         </Link>
         <Link href="/events" className="neon-link hover:underline">
-          Eventos →
+          Eventos
         </Link>
         <Link href="/masteries" className="neon-link hover:underline">
-          Masteries →
+          Masteries
         </Link>
         <Link href="/craft" className="neon-link hover:underline">
-          Crafting →
+          Crafting
         </Link>
       </div>
 

@@ -2,7 +2,7 @@
 
 Helper **local** no browser para Guild Wars 2 (**v2**): cada usuário coloca **a própria** API key, sincroniza a conta e vê o que fazer agora (PvE e PvP). Adapta-se ao estágio (F2P → endgame/VoE), com personagem selecionável - pensado também para iniciantes.
 
-## Setup (usuário final)
+## Setup
 
 1. `copy .env.local.example .env.local`
 2. Cole **sua** API key ([ArenaNet Applications](https://account.arena.net/applications)) com scopes: `account`, `characters`, `inventories`, `builds`, `progression`, `unlocks`, `wallet`, `pvp`, `tradingpost`
@@ -42,18 +42,14 @@ Nunca commite `.env.local`, snapshots ou o SQLite.
 | `npm run sync` | Sync da conta + catálogo se build mudou |
 | `npm run catalog -- --force` | Reindexa DB do jogo |
 | `npm run recs` | Recalcula recomendações |
-| `npm run smoke` | Smoke funcional (sem vazar dados de conta) |
+| `npm run smoke` | Smoke das rotas e fluxos |
 | `npm run test:events` | Timeline + estágio + prefs + LW |
 | `npm run health` | Rotas HTTP |
 
 ## Docs
 
-- [Guia do usuário](docs/USER_GUIDE.md)
+- [Guia](docs/USER_GUIDE.md)
 - [Privacidade](docs/PRIVACY.md)
 - [Arquitetura](docs/ARCHITECTURE.md)
 - [APIs](docs/API_CATALOG.md)
 - [Roadmap](docs/ROADMAP.md)
-
-## Nota
-
-Não há API pública do gw2efficiency. Conta = `api.guildwars2.com`. Schedule de eventos = wiki (horários agendados, não feed live). LLM não é source of truth.

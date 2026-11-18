@@ -45,9 +45,10 @@ export function ItemIcon({
 
   if (!src || failed) {
     if (!showPlaceholder) return null;
+    // Placeholder neutro (nunca placa cinza de raridade Basic)
     return (
       <span
-        className={`inline-block shrink-0 self-start rounded ${plate} ${className}`}
+        className={`inline-block shrink-0 self-start rounded bg-[#1a2436] ring-1 ring-cyan-500/15 ${className}`}
         style={box}
         title="Sem ícone"
         aria-hidden

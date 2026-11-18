@@ -9,10 +9,11 @@ import { parseVaultTracks } from "@/lib/vault/parse";
 import { resolveVaultObjective } from "@/lib/vault/guide";
 import { wikiSearch } from "@/lib/wiki";
 import { normalizeCatalogText } from "@/lib/catalog/normalize";
+import { analyzeStoryProgress } from "@/lib/roadmap/story-guide";
 
 export interface MapSessionObjective {
   id: string;
-  kind: "achievement" | "vault" | "mastery" | "event" | "goal";
+  kind: "achievement" | "vault" | "mastery" | "event" | "goal" | "story";
   label: string;
   weight: number;
   chatLink?: string;
@@ -193,7 +194,7 @@ export function buildMapSessions(
         objective: {
           id: `mastery-${step.trackId}-${step.nextLevelIndex}`,
           kind: "mastery",
-          label: `Mastery: ${step.trackName} → ${step.nextLevelName}`,
+          label: `Mastery: ${step.trackName} - ${step.nextLevelName}`,
           weight: 75,
           chatLink: step.chatLink ?? loc.chatLink,
           teleportLabel: step.teleportLabel,
@@ -203,6 +204,36 @@ export function buildMapSessions(
     }
   } catch {
     /* mastery opcional */
+  }
+
+  try {
+    for (const step of analyzeStoryProgress(snapshot)
+      .filter((s) => s.owned)
+      .slice(0, 6)) {
+      const loc = resolveLocation([
+        step.where ?? "",
+        ...(step.bundleWith ?? []),
+        step.title,
+      ]);
+      if (!loc.mapId || !loc.mapName) continue;
+      located.push({
+        mapId: loc.mapId,
+        mapName: loc.mapName,
+        chatLink: step.chatLink ?? loc.chatLink,
+        waypointName: loc.waypointName,
+        objective: {
+          id: `story-${step.id}`,
+          kind: "story",
+          label: `História: ${step.title}`,
+          weight: 78,
+          chatLink: step.chatLink ?? loc.chatLink,
+          teleportLabel: step.teleportLabel,
+          how: step.how,
+        },
+      });
+    }
+  } catch {
+    /* story opcional */
   }
 
   let eventMapIds = new Set<number>();
@@ -284,7 +315,7 @@ export function buildMapSessions(
       how: `Teleporte, faça na ordem: ${objectives
         .slice(0, 4)
         .map((o) => o.label)
-        .join(" → ")}.`,
+        .join(" - ")}.`,
       wikiUrl: wikiSearch(mapName),
       eventBoost,
     });

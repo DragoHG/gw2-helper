@@ -129,9 +129,9 @@ export function EasyAchievementsPanel({
                         {(item.nextBitIcons?.length
                           ? item.nextBitIcons
                           : item.nextBits.map((label) => ({ label }))
-                        ).map((bit) => (
+                        ).map((bit, bitIndex) => (
                           <li
-                            key={bit.label}
+                            key={`${item.id}-bit-${bitIndex}-${bit.label}`}
                             className="flex items-center gap-2"
                           >
                             <ItemIcon

@@ -206,6 +206,7 @@ async function main() {
     "/masteries",
     "/craft",
     "/roadmap",
+    "/story",
     "/pvp",
     "/info",
   ];

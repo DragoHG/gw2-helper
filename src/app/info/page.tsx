@@ -12,7 +12,12 @@ const PAGES: Array<{ href: string; name: string; blurb: string }> = [
   {
     href: "/roadmap",
     name: "Linha do tempo",
-    blurb: "Plano completo da conta em faixas (agora → poder → mastery → história → craft → competitivo).",
+    blurb: "Plano completo da conta em faixas (agora, poder, mastery, história, craft, competitivo).",
+  },
+  {
+    href: "/story",
+    name: "História",
+    blurb: "Capítulos da story alinhados às expansões que você tem, com wiki e teleport.",
   },
   {
     href: "/events",
@@ -79,8 +84,8 @@ export default function InfoPage() {
         <p className="text-sm text-slate-300">
           Consolida progresso PvE e competitivo (sPvP/WvW), Ascended, masteries,
           crafting, eventos, Vault, história por expansão e recomendações
-          adaptadas ao estágio (F2P → Visions of Eternity). Não inventa
-          progresso: tudo vem da API ArenaNet + índices locais.
+          adaptadas ao estágio (F2P até Visions of Eternity). Tudo vem da API
+          ArenaNet e dos índices locais do jogo.
         </p>
       </section>
 

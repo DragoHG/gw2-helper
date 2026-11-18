@@ -12,6 +12,7 @@ const GROUPS: Array<{
     links: [
       { href: "/", label: "Fazer agora" },
       { href: "/roadmap", label: "Linha do tempo" },
+      { href: "/story", label: "História" },
       { href: "/events", label: "Eventos" },
       { href: "/daily", label: "Daily" },
       { href: "/vault", label: "Vault" },

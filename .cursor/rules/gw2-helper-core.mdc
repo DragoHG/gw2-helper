@@ -7,7 +7,7 @@ alwaysApply: true
 
 - Fonte de verdade da conta: API oficial ArenaNet (`GW2_API_KEY`). Nunca inventar progresso.
 - maximizar funções com foco na conta de API do usuário final; usar a API atual como exemplo para tudo.
-- Duas camadas: **DB do jogo** (WP/setores/objetivo→WP/schedule/masteries/WvW/história) ≠ **progresso da conta** (sync). Achievements = conta; gear/Ascended = personagem focado. Timeline `/events` prioriza o que falta agora. `/roadmap` + home consolidam o plano (inclui história). Botão de catálogo = refresh máximo do DB do jogo.
+- Duas camadas: **DB do jogo** (WP/setores/objetivo→WP/schedule/masteries/WvW/história) ≠ **progresso da conta** (sync). Achievements = conta; gear/Ascended = personagem focado. Timeline `/events` prioriza o que falta agora. `/roadmap` + `/story` + home consolidam o plano (PoF→LW4; capítulos bloqueados visíveis). Botão de catálogo = refresh máximo do DB do jogo.
 - Separar PvE e PvP em recomendações e UI.
 - Persistir conta/catálogo fora do repo (`%LOCALAPPDATA%\gw2_helper` ou `GW2_HELPER_DATA`).
 - Não commitar `.env.local`, snapshots ou DB.
@@ -18,6 +18,5 @@ alwaysApply: true
 - Nomes legíveis (items/titles/skins/minis) - evitar `item #id` na UI.
 - Textos para iniciante: evitar jargão sem explicação curta; alinhar dicas às expansões reais da conta.
 - Copy/UI/docs: hífen ASCII `-` (nunca em-dash `U+2014` / en-dash `U+2013`). Sem tipografia artificial (travessões tipográficos).
-- LLM enrichment está fora do escopo atual.
 - v2 completa: estágio F2P→VoE, Vault/festivais/lendários no motor, LW só se tocado, sync resiliente a scopes parciais. Ver `docs/ROADMAP.md`.
 - Não criar commit sem pedido explícito do usuário.

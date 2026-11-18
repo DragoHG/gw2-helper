@@ -14,6 +14,7 @@ const pages = [
   "/masteries",
   "/craft",
   "/roadmap",
+  "/story",
   "/pvp",
   "/info",
 ];

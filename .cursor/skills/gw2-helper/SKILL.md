@@ -40,8 +40,8 @@ Teleport = (2) diz o que falta + (1) aponta o WP. Timeline `/events` cruza sched
 3. Feature API-first + copy iniciante + wiki + teleport quando o objetivo tiver local.
 4. Resolver nomes (`/items`, `/titles`, `/skins`, `/minis`) - nunca deixar `item #123` na UI se a API tiver nome.
 5. Personagem selecionado (main default) para poder/Ascended.
-6. Sync resiliente: equipment/buildtabs optional; LW só com progresso; festivais só na janela.
-7. Linha do tempo `/roadmap` agrega motores existentes - não duplicar lógica fora de `src/lib/roadmap/`.
+6. Sync resiliente: equipment/buildtabs optional; LW tocada por progresso; beat LW4 pós-PoF; festivais só na janela.
+7. `/roadmap` + `/story` usam `story-guide` (PoF→LW4, bloqueados visíveis) - não duplicar fora de `src/lib/roadmap/`.
 8. Validar: `npm run sync` + `test:events` + `smoke` + `health` + `build`. Sem colar output sensível em docs.
 
 ## Copy e UI
@@ -53,7 +53,6 @@ Teleport = (2) diz o que falta + (1) aponta o WP. Timeline `/events` cruza sched
 ## Não fazer
 
 - Documentar ou versionar API keys, nomes de conta, personagens, inventário ou progresso real.
-- LLM como source of truth.
 - Gravar DB/snapshots dentro do diretório do repo.
 - Assumir waypoints desbloqueados (API não expõe).
 - Commit sem pedido explícito do usuário.

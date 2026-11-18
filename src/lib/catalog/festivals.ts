@@ -1,5 +1,5 @@
 /**
- * Calendário estático UTC de festivais sazonais (sem LLM).
+ * Calendário estático UTC de festivais sazonais.
  * Janelas aproximadas anuais - boost na timeline só dentro do intervalo.
  */
 

@@ -28,7 +28,7 @@ export function RoadmapStepCard({
     <article className="timeline-rail relative panel min-w-0 p-4">
       <span className="timeline-dot" aria-hidden />
       <div className="flex items-start gap-3">
-        <ItemIcon src={step.icon} alt="" size={36} showPlaceholder />
+        <ItemIcon src={step.icon} alt="" size={36} />
         <div className="min-w-0 flex-1 break-safe">
           <div className="mb-1 flex flex-wrap items-center gap-2">
             {typeof index === "number" && (
@@ -54,8 +54,8 @@ export function RoadmapStepCard({
           />
           {step.bundleWith && step.bundleWith.length > 0 && (
             <ul className="mt-2 list-disc space-y-0.5 pl-5 text-xs text-slate-400">
-              {step.bundleWith.map((b) => (
-                <li key={b}>{b}</li>
+              {step.bundleWith.map((b, i) => (
+                <li key={`${step.id}-bundle-${i}`}>{b}</li>
               ))}
             </ul>
           )}

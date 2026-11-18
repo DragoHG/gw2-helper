@@ -41,10 +41,9 @@ No sync da conta também: `/recipes` (defs das unlocked), `/items` (outputs/ingr
 | POST | `/api/prefs/pin-achievement` | Pin |
 | GET/POST | `/api/prefs/backup` | Export/import prefs (personagem + pins; **sem** API key/snapshot) |
 
-## Limites honestos
+## Limites da API
 
-- API **não** lista waypoints desbloqueados; o `chat_link` ainda abre o mapa.
-- Living World: sem flag de ownership - só sugerimos se já há progresso/bits no achievement (ou quest conhecida).
+- A API **não** lista waypoints desbloqueados; o `chat_link` ainda abre o mapa.
+- Living World: sem flag de ownership na API. Achievements LW só se já há progresso/bits. Beat de história **LW4** libera com Path of Fire (continuidade pós-PoF); episódios já tocados também entram no roadmap.
 - Contadores sem local no mapa podem não ter teleport.
 - AR estimada via infusions (não inclui AR base do gear Ascended).
-- Sem API pública do gw2efficiency.

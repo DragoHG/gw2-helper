@@ -8,6 +8,7 @@ import {
   rankAchievements,
 } from "@/lib/achievements/analyze";
 import { getPinnedAchievementIds, loadLatestSnapshot } from "@/lib/db";
+import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 
@@ -17,7 +18,7 @@ export default function AchievementsPage() {
     return (
       <HelperChrome
         title="Achievements"
-        subtitle="Atualize a conta para ver o que falta, por que é fácil agora e para onde teleportar."
+        subtitle="Atualize a conta para ver o que falta, por que é fácil agora, wiki e teleport do próximo passo."
       />
     );
   }
@@ -47,8 +48,20 @@ export default function AchievementsPage() {
     <div className="space-y-8">
       <HelperChrome
         title="Achievements"
-        subtitle="Fixe os fáceis, copie o waypoint, cole no chat do jogo e clique no link para abrir o mapa. A wiki ajuda se travar no próximo passo."
+        subtitle="Lista o que falta na conta, por que é fácil agora, o próximo passo (bit), wiki e teleport. Bits iguais (ex.: Text) são passos distintos - use o ícone/ordem."
       />
+
+      <p className="flex flex-wrap gap-3 text-sm">
+        <Link href="/story" className="neon-link hover:underline">
+          História
+        </Link>
+        <Link href="/events" className="neon-link hover:underline">
+          Eventos
+        </Link>
+        <Link href="/roadmap" className="neon-link hover:underline">
+          Linha do tempo
+        </Link>
+      </p>
 
       <section className="grid gap-3 sm:grid-cols-3">
         <Stat label="Completos" value={`${summary.done}/${summary.total}`} />
@@ -58,7 +71,7 @@ export default function AchievementsPage() {
           value={topFive[0]?.name ?? "-"}
           sub={
             topFive[0]
-              ? `${topFive[0].current}/${topFive[0].max} · faltam ${topFive[0].remaining}`
+              ? `${topFive[0].current}/${topFive[0].max} - faltam ${topFive[0].remaining}`
               : undefined
           }
         />
@@ -153,7 +166,7 @@ function AchievementTable({
                 <div className="flex flex-wrap items-baseline justify-between gap-2">
                   <h4 className="text-amber-50">{item.name}</h4>
                   <span className="text-sm text-amber-200">
-                    {item.current}/{item.max} · faltam {item.remaining}
+                    {item.current}/{item.max} - faltam {item.remaining}
                   </span>
                 </div>
                 <ProgressBar current={item.current} max={item.max} />
@@ -163,9 +176,9 @@ function AchievementTable({
                     : item.nextBits.map((label) => ({ label }))
                   )
                     .slice(0, 4)
-                    .map((bit) => (
+                    .map((bit, bitIndex) => (
                       <li
-                        key={bit.label}
+                        key={`${item.id}-bit-${bitIndex}-${bit.label}`}
                         className="flex items-center gap-2 text-sm text-slate-300"
                       >
                         <ItemIcon

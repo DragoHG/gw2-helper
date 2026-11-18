@@ -70,26 +70,27 @@ export default function HomePage() {
     skipEvents: true,
   });
   const masteryTop = rankMasterySteps(snapshot, { limit: 1 })[0];
-  const storyTop = storyRoadmapSteps(snapshot)[0];
+  const storySteps = storyRoadmapSteps(snapshot);
+  const storyTop = storySteps[0];
 
   const guideItems: Array<{ text: string; chatLink?: string }> = [];
+  if (storyTop) {
+    guideItems.push({
+      text: `História agora: ${storyTop.title} - ${storyTop.why}`,
+      chatLink: storyTop.chatLink,
+    });
+  }
   if (stage.stage === "f2p" || stage.stage === "leveling") {
     guideItems.push({
-      text: `Prioridade: chegar ao nível 80 (${focused?.core.name ?? "seu personagem"} · lvl ${stage.level || "?"}). ${stage.summary}`,
+      text: `Prioridade: chegar ao nível 80 (${focused?.core.name ?? "seu personagem"} - lvl ${stage.level || "?"}). ${stage.summary}`,
     });
     guideItems.push({
       text: "Faça world bosses fáceis e o Wizard's Vault do dia - XP e Astral Acclaim sem precisar de expansão.",
     });
-    if (storyTop) {
-      guideItems.push({
-        text: `História: ${storyTop.title} - ${storyTop.why}`,
-        chatLink: storyTop.chatLink,
-      });
-    }
   } else {
     if (vault && vault.openTitles.length) {
       guideItems.push({
-        text: `Wizard's Vault hoje: ${vault.openTitles.slice(0, 2).join(" · ")} (${vault.done}/${vault.total}).`,
+        text: `Wizard's Vault hoje: ${vault.openTitles.slice(0, 2).join(" - ")} (${vault.done}/${vault.total}).`,
       });
     }
     if (laurels >= 30 && gaps.some((g) => /Amulet|Accessory|Ring|Back/i.test(g.slot))) {
@@ -148,7 +149,7 @@ export default function HomePage() {
           value={focused?.core.name ?? "-"}
           sub={
             focused
-              ? `${focused.core.profession} · lvl ${focused.core.level}`
+              ? `${focused.core.profession} - lvl ${focused.core.level}`
               : undefined
           }
         />
@@ -161,13 +162,69 @@ export default function HomePage() {
           }
           sub={
             stage.showAscended
-              ? `Fractal ${stage.fractalLevel}${vault ? ` · Vault ${vault.done}/${vault.total}` : ""}`
+              ? `Fractal ${stage.fractalLevel}${vault ? ` - Vault ${vault.done}/${vault.total}` : ""}`
               : vault
                 ? `Vault ${vault.done}/${vault.total}`
                 : undefined
           }
         />
       </section>
+
+      {storyTop && (
+        <section className="panel-glow space-y-2 p-4 sm:p-5">
+          <div className="flex flex-wrap items-end justify-between gap-2">
+            <h3 className="section-title text-lg">História em foco</h3>
+            <Link className="text-sm neon-link hover:underline" href="/story">
+              Ver linha completa
+            </Link>
+          </div>
+          <p className="text-[10px] uppercase tracking-[0.18em] text-cyan-400/80">
+            Expansões + Living World - o que falta agora na conta
+          </p>
+          <p className="text-lg text-cyan-50 break-safe">{storyTop.title}</p>
+          <p className="text-sm text-slate-300 break-safe">{storyTop.why}</p>
+          {storyTop.bundleWith && storyTop.bundleWith.length > 0 && (
+            <ul className="list-disc space-y-0.5 pl-5 text-xs text-slate-400">
+              {storyTop.bundleWith.slice(0, 4).map((b, i) => (
+                <li key={`home-story-b-${i}`}>{b}</li>
+              ))}
+            </ul>
+          )}
+          <ActionHints
+            how={storyTop.how}
+            where={storyTop.where}
+            teleportLabel={storyTop.teleportLabel}
+            chatLink={storyTop.chatLink}
+            wikiUrl={storyTop.wikiUrl}
+          />
+          {storySteps.length > 1 && (
+            <p className="text-xs text-slate-500">
+              Depois na fila:{" "}
+              {storySteps
+                .slice(1, 3)
+                .map((s) => s.title)
+                .join(" - ")}
+            </p>
+          )}
+          <p className="flex flex-wrap gap-3 text-sm">
+            <Link href="/story" className="neon-link hover:underline">
+              História
+            </Link>
+            <Link href="/achievements" className="neon-link hover:underline">
+              Achievements
+            </Link>
+            <Link href="/events" className="neon-link hover:underline">
+              Eventos
+            </Link>
+            <Link href="/masteries" className="neon-link hover:underline">
+              Masteries
+            </Link>
+            <Link href="/roadmap" className="neon-link hover:underline">
+              Linha do tempo
+            </Link>
+          </p>
+        </section>
+      )}
 
       <section className="panel-glow space-y-3 p-4 sm:p-5">
         <h3 className="section-title text-lg">Guia rápido</h3>
@@ -184,84 +241,46 @@ export default function HomePage() {
           ))}
         </ol>
         <div className="mt-3 flex flex-wrap gap-3 text-sm">
-          <Link className="text-amber-400 hover:underline" href="/roadmap">
-            Linha do tempo completa
+          <Link className="neon-link hover:underline" href="/roadmap">
+            Linha do tempo
+          </Link>
+          <Link className="neon-link hover:underline" href="/story">
+            História
           </Link>
           {stage.showAscended && (
-            <Link className="text-amber-400 hover:underline" href="/ascended">
-              Plano Ascended
+            <Link className="neon-link hover:underline" href="/ascended">
+              Ascended
             </Link>
           )}
-          <Link className="text-amber-400 hover:underline" href="/achievements">
+          <Link className="neon-link hover:underline" href="/achievements">
             Achievements
           </Link>
-          <Link className="text-amber-400 hover:underline" href="/events">
+          <Link className="neon-link hover:underline" href="/events">
             Eventos
           </Link>
-          <Link className="text-amber-400 hover:underline" href="/daily">
+          <Link className="neon-link hover:underline" href="/daily">
             Daily
           </Link>
-          <Link className="text-amber-400 hover:underline" href="/vault">
+          <Link className="neon-link hover:underline" href="/vault">
             Vault
           </Link>
-          <Link className="text-amber-400 hover:underline" href="/materials">
+          <Link className="neon-link hover:underline" href="/materials">
             Materiais
           </Link>
-          <Link className="text-amber-400 hover:underline" href="/masteries">
+          <Link className="neon-link hover:underline" href="/masteries">
             Masteries
           </Link>
-          <Link className="text-amber-400 hover:underline" href="/craft">
+          <Link className="neon-link hover:underline" href="/craft">
             Crafting
           </Link>
-          <Link className="text-amber-400 hover:underline" href="/pvp">
+          <Link className="neon-link hover:underline" href="/pvp">
             PvP / WvW
           </Link>
-          <Link className="text-amber-400 hover:underline" href="/info">
-            Sobre o helper
+          <Link className="neon-link hover:underline" href="/info">
+            Sobre
           </Link>
         </div>
       </section>
-
-      {storyTop && (
-        <section className="panel space-y-2 p-4 sm:p-5">
-          <div className="flex flex-wrap items-end justify-between gap-2">
-            <h3 className="section-title text-lg">História em foco</h3>
-            <Link
-              className="text-sm text-amber-400 hover:underline"
-              href="/roadmap"
-            >
-              Linha do tempo
-            </Link>
-          </div>
-          <p className="mt-1 text-lg text-amber-50 break-safe">{storyTop.title}</p>
-          <p className="text-sm text-slate-300 break-safe">{storyTop.why}</p>
-          {storyTop.bundleWith && storyTop.bundleWith.length > 0 && (
-            <ul className="mt-2 list-disc space-y-0.5 pl-5 text-xs text-slate-400">
-              {storyTop.bundleWith.slice(0, 4).map((b) => (
-                <li key={b}>{b}</li>
-              ))}
-            </ul>
-          )}
-          <ActionHints
-            how={storyTop.how}
-            where={storyTop.where}
-            teleportLabel={storyTop.teleportLabel}
-            chatLink={storyTop.chatLink}
-            wikiUrl={storyTop.wikiUrl}
-          />
-          <p className="mt-2 flex flex-wrap gap-3 text-sm">
-            <Link href="/achievements" className="neon-link hover:underline">
-              Achievements →
-            </Link>
-            <Link href="/events" className="neon-link hover:underline">
-              Eventos no mapa →
-            </Link>
-            <Link href="/masteries" className="neon-link hover:underline">
-              Masteries →
-            </Link>
-          </p>
-        </section>
-      )}
 
       {sessions[0] && (
         <section className="panel space-y-2 p-4 sm:p-5">
@@ -272,7 +291,7 @@ export default function HomePage() {
             </Link>
           </div>
           <p className="mt-1 text-lg text-amber-50">
-            {sessions[0].mapName} · {sessions[0].objectives.length} coisas de
+            {sessions[0].mapName} - {sessions[0].objectives.length} coisas de
             uma vez
           </p>
           <p className="text-sm text-slate-300">{sessions[0].why}</p>

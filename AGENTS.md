@@ -2,9 +2,9 @@
 
 ## This is NOT the Next.js you know
 
-This version has breaking changes - APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
 
-This block is written and re-added by `next dev` - verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
 
 <!-- END:nextjs-agent-rules -->
 
@@ -24,7 +24,8 @@ This block is written and re-added by `next dev` - verify at `node_modules/next/
 - Dados: `%LOCALAPPDATA%\gw2_helper` - nunca no working tree / git.
 - Catálogo: refresh quando `/v2/build` muda; botão **Atualizar dados do jogo** (`force`) - WP, eventos, masteries, WvW ranks, story beats, maps. Wiki schedule precisa de `User-Agent`.
 - **`/roadmap`** (`buildAccountRoadmap`): orquestra sessão + eventos + vault + recs + ascended + masteries + achievements + story/map + craft + lendários + PvP. API: `/api/roadmap`.
-- Timeline `/events` + sessões multiobjetivo por `mapId`; festivais só na janela UTC; LW sem goal casado não entra.
+- **`/story`**: linha completa (`analyzeStoryProgress`) - core, LW4 (após PoF), expansões; bloqueados visíveis. Home/recs/sessões/roadmap usam `storyRoadmapSteps` (só liberados, sem PoF `likelyComplete`).
+- Timeline `/events` + sessões multiobjetivo por `mapId`; festivais só na janela UTC; LW genérico sem progresso não entra; beat LW4 pós-PoF sim.
 - Masteries: rankear próximo nível × pontos livres; XP = guia por região (API não expõe barra).
 - Crafting: recipes unlocked + estoque agregado + TP buy/sell + farm do que falta.
 - Achievements = conta (LW só se `current>0`/bits); gear/Ascended/AR = personagem focado.
@@ -45,4 +46,4 @@ npm run smoke                # requer npm run dev
 npm run health
 ```
 
-Sem colar PII em docs. Não criar commit sem pedido explícito do usuário. LLM enrichment fora do escopo.
+Sem colar dados reais de conta em docs. Não criar commit sem pedido explícito do usuário.
