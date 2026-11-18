@@ -1,0 +1,19 @@
+---
+description: Convenções do client GW2 e catálogo versionado
+globs: src/lib/gw2/**/*.ts,src/lib/catalog/**/*.ts,src/app/api/**/*.ts,src/lib/geo/**/*.ts,src/lib/achievements/**/*.ts
+alwaysApply: false
+---
+
+# GW2 API + catalog
+
+- Usar `gw2Fetch` / `gw2FetchMany` com retry em 429.
+- Desembrulhar shapes da API (`crafting.crafting`, `equipment.equipment`).
+- Catálogo estático keyed por `/v2/build`; refresh no sync se build mudou **ou** se faltar setores/índice de objetivos.
+- Waypoints: continents POIs `type=waypoint` + `chat_link`. Setores: `sectors` com coord → WP mais próximo.
+- Índice `objective-waypoints.json`: texto de bit/setor/alias → WP (jogo inteiro, sem conta).
+- Schedule `events-schedule.json`: wiki Event timer (UA obrigatório); engine em `src/lib/events/` (goals × score × timeline). Agendado ≠ live.
+- Sync: achievements incompletos + `/items|/titles|/skins|/minis|/itemstats`; skiffs/jadebots optional; equipment/buildtabs **optional** (key parcial).
+- `missingScopes` a partir de `tokeninfo.permissions`; rec acionável na UI.
+- Expansões via `resolveAccountAccess` / `hasExpansion` (PoF⇒HoT); LW só com progresso real; festivais em `catalog/festivals.ts`.
+- Prefs backup: `GET/POST /api/prefs/backup` (sem PII de conta).
+- Erros com mensagens acionáveis (key ausente, scope, timeout).

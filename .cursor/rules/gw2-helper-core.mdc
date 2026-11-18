@@ -1,0 +1,23 @@
+---
+description: Regras centrais do GW2 Helper (API-first, PvE/PvP, dados locais)
+alwaysApply: true
+---
+
+# GW2 Helper - core
+
+- Fonte de verdade da conta: API oficial ArenaNet (`GW2_API_KEY`). Nunca inventar progresso.
+- maximizar funções com foco na conta de API do usuário final; usar a API atual como exemplo para tudo.
+- Duas camadas: **DB do jogo** (WP/setores/objetivo→WP/schedule/masteries/WvW/história) ≠ **progresso da conta** (sync). Achievements = conta; gear/Ascended = personagem focado. Timeline `/events` prioriza o que falta agora. `/roadmap` + home consolidam o plano (inclui história). Botão de catálogo = refresh máximo do DB do jogo.
+- Separar PvE e PvP em recomendações e UI.
+- Persistir conta/catálogo fora do repo (`%LOCALAPPDATA%\gw2_helper` ou `GW2_HELPER_DATA`).
+- Não commitar `.env.local`, snapshots ou DB.
+- Nunca colocar em docs/agent/commits dados reais de conta (API key, nome da conta, personagens, inventário, progresso). Foco só no usuário final genérico. Ver `docs/PRIVACY.md`.
+- Responder ao usuário em português.
+- Personagem principal (nível/idade) é o default; features de poder focam no personagem selecionado.
+- Toda ação de helper deve tentar oferecer: o que fazer, por quê, como, link wiki e teleport (`chat_link`) quando existir.
+- Nomes legíveis (items/titles/skins/minis) - evitar `item #id` na UI.
+- Textos para iniciante: evitar jargão sem explicação curta; alinhar dicas às expansões reais da conta.
+- Copy/UI/docs: hífen ASCII `-` (nunca em-dash `U+2014` / en-dash `U+2013`). Sem tipografia artificial (travessões tipográficos).
+- LLM enrichment está fora do escopo atual.
+- v2 completa: estágio F2P→VoE, Vault/festivais/lendários no motor, LW só se tocado, sync resiliente a scopes parciais. Ver `docs/ROADMAP.md`.
+- Não criar commit sem pedido explícito do usuário.

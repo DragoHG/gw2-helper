@@ -1,0 +1,22 @@
+---
+description: Convenções de UI do helper
+globs: src/app/**/*.tsx,src/components/**/*.tsx
+alwaysApply: false
+---
+
+# UI Helper
+
+- Copy: hífen ASCII `-` (nunca `U+2014` / `U+2013`).
+- Nav sticky em grupos Plano / Progresso / Conta; brand com favicon linka para `/`.
+- Tokens: `panel`, `panel-glow`, `section-title`, `neon-link`, `stat-grid`.
+- Nav: grupos Plano/Progresso/Conta com `flex-wrap` (sem overflow-x / scrollbar).
+- Cada card/ação: título claro, por quê, como, wiki, copiar teleport se houver.
+- Seletor de personagem no header; default = main.
+- Botões: **Atualizar minha conta** + **Atualizar dados do jogo**.
+- Conta: mostrar expansões resolvidas (não raw `PlayForFree` como status principal).
+- Achievements: top 5 com detalhes; teleport do **próximo passo** faltando.
+- Eventos: timeline flexível (primary / bridges / upcoming) com **Copiar waypoint**, countdown ao vivo e refetch quando a janela acaba; disclaimer de horário agendado.
+- Guias iniciantes alinhados ao que a conta realmente tem (expansões/mounts/laurels).
+- Botões de copy com feedback visual curto.
+- Não depender de LLM para preencher campos.
+- Páginas dinâmicas (`force-dynamic`) que leem SQLite/snapshot.

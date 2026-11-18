@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="GW2 Helper">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#3cf0c8"/>
+      <stop offset="100%" stop-color="#e8b84a"/>
+    </linearGradient>
+  </defs>
+  <circle cx="32" cy="32" r="30" fill="#0a1220" stroke="url(#g)" stroke-width="2"/>
+  <path d="M18 38c4-14 12-20 14-22 2 2 10 8 14 22-6-4-10-6-14-6s-8 2-14 6z" fill="none" stroke="#3cf0c8" stroke-width="2.2" stroke-linejoin="round"/>
+  <path d="M22 40c3-8 7-12 10-14 3 2 7 6 10 14" fill="none" stroke="#e8b84a" stroke-width="1.6"/>
+  <text x="32" y="50" text-anchor="middle" font-family="Georgia, serif" font-size="14" font-weight="700" fill="#e8b84a">F</text>
+</svg>
